@@ -1,10 +1,10 @@
 name: Workload Identity Pool with Github Actions and Terraform
 
 on:
- push:
+  push:
     branches:
-      - '*'
- workflow_dispatch:
+      - '*' 
+  workflow_dispatch:
 
 env:
   TF_VAR_PROJECT_ID: ${{ vars.TF_VAR_PROJECT_ID }}
@@ -47,3 +47,7 @@ jobs:
       - name: Convert Terraform Plan to JSON
         id: convert
         run: terraform show -no-color -json mainplan.tfplan > mainplan.json
+
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -auto-approve mainplan.tfplan

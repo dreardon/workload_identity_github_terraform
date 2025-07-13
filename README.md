@@ -2,10 +2,10 @@
 
 ## Prerequisites
 <ul type="square">
-<li>An existing Google Project, this is where permissions will be set and terraform will be executed. You will need to reference its PROJECT_ID later in this setup</li>
+<li>An existing Google Project, this is where permissions will be set and Terraform runs will be targeted. You will need to reference its PROJECT_ID later in this setup</li>
 
 ```
-export PROJECT_ID=[Project ID for where terraform will be executed]
+export PROJECT_ID=[Project_ID for Terraform]
 ```
 
 <li>The following environment variables set in Github </li> 
@@ -16,6 +16,7 @@ export PROJECT_ID=[Project ID for where terraform will be executed]
 WORKLOAD_IDENTITY_POOL
 WORKLOAD_IDENTITY_PROVIDER
 WORKLOAD_IDENTITY_POOL_PROJECT_NUMBER
+TF_VAR_PROJECT_ID (Project_ID for Terraform)
 ```
 </ul>
 

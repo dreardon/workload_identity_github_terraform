@@ -8,6 +8,7 @@ on:
 
 env:
   TF_VAR_PROJECT_ID: ${{ vars.TF_VAR_PROJECT_ID }}
+  BACKEND_BUCKET: ${{ vars.BACKEND_BUCKET }}
 
 permissions:
   id-token: write 
@@ -34,7 +35,7 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: terraform init
+        run: terraform init -backend-config="bucket=$BACKEND_BUCKET"
 
       - name: Terraform Validate
         run: terraform validate        

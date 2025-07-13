@@ -2,10 +2,17 @@
 
 ## Prerequisites
 <ul type="square">
-<li>An existing Google Project, this is where permissions will be set and Terraform runs will be targeted. You will need to reference its PROJECT_ID later in this setup</li>
+<li>An existing Google Project. This is where permissions will be set and Terraform runs will be targeted. You will need to reference its PROJECT_ID later in this setup</li>
 
 ```
 export PROJECT_ID=[Project_ID for Terraform]
+```
+<li>A storage bucket where you'll reference Terraform state</li>
+
+```
+gcloud storage buckets create gs://$PROJECT_ID-terraform-state \
+--location=US \
+--project=$PROJECT_ID
 ```
 
 <li>The following environment variables set in Github </li> 
@@ -16,6 +23,7 @@ export PROJECT_ID=[Project_ID for Terraform]
 WORKLOAD_IDENTITY_POOL
 WORKLOAD_IDENTITY_PROVIDER
 WORKLOAD_IDENTITY_POOL_PROJECT_NUMBER
+BACKEND_BUCKET (Backend Terraform State Bucket)
 TF_VAR_PROJECT_ID (Project_ID for Terraform)
 ```
 </ul>
@@ -47,6 +55,12 @@ gcloud iam workload-identity-pools providers create-oidc $WORKLOAD_IDENTITY_PROV
 
 ## Project IAM Permissions for Workload Identity Pool Provider
 ```
+#Terraform State Bucket Access
+gcloud storage buckets add-iam-policy-binding gs://$PROJECT_ID-terraform-state \
+--member="principalSet://iam.googleapis.com/projects/${WIF_PROJECT_NUMBER}/locations/global/workloadIdentityPools/${WORKLOAD_IDENTITY_POOL}/attribute.repository/${CONDITION}" \
+--role=roles/storage.objectUser
+
+#Additional Example from Terraform Build-out
 gcloud projects add-iam-policy-binding $PROJECT_ID \
     --member="principalSet://iam.googleapis.com/projects/${WIF_PROJECT_NUMBER}/locations/global/workloadIdentityPools/${WORKLOAD_IDENTITY_POOL}/attribute.repository/${CONDITION}" \
     --role="roles/storage.admin"

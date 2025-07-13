@@ -1,11 +1,5 @@
-resource "random_string" "bucket_suffix" {
-  length  = 8
-  special = false
-  upper   = false
-}
-
-resource "google_storage_bucket" "scc-iac-staged-bucket" {
-  name          = "example-${random_string.bucket_suffix.result}"
+resource "google_storage_bucket" "example-bucket" {
+  name          = "${var.PROJECT_ID}-example"
   location      = "US"
   force_destroy = true
   project = var.PROJECT_ID

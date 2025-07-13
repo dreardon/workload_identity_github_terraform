@@ -3,7 +3,9 @@ name: Workload Identity Pool with Github Actions and Terraform
 on:
   push:
     branches:
-      - '*' 
+      - '*'
+    paths-ignore:
+      - '**/README.md'
   workflow_dispatch:
 
 env:

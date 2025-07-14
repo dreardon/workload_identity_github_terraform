@@ -10,7 +10,7 @@ on:
 
 env:
   TF_VAR_PROJECT_ID: ${{ vars.TF_VAR_PROJECT_ID }}
-  TF_VAR_TF_LOG: ${{ vars.TF_VAR_TF_LOG }}
+  TF_LOG: ${{ vars.TF_LOG }}
   BACKEND_BUCKET: ${{ vars.BACKEND_BUCKET }}
 
 permissions:

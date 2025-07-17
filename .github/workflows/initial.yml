@@ -10,6 +10,7 @@ on:
 
 env:
   TF_VAR_PROJECT_ID: ${{ vars.TF_VAR_PROJECT_ID }}
+  TEST_PROJECT_ID: ${{ vars.TEST_PROJECT_ID }}
   TF_LOG: ${{ vars.TF_LOG }}
   BACKEND_BUCKET: ${{ vars.BACKEND_BUCKET }}
 
@@ -31,7 +32,7 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v2
         with:
-            project_id: ${{ inputs.project_id }}
+            project_id: ${{ vars.TEST_PROJECT_ID }}
             workload_identity_provider: 'projects/${{ vars.WORKLOAD_IDENTITY_POOL_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/${{ vars.WORKLOAD_IDENTITY_POOL }}/providers/${{ vars.WORKLOAD_IDENTITY_PROVIDER }}'
 
       - name: Setup Terraform

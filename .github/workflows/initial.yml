@@ -31,6 +31,7 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v2
         with:
+            project_id: ${{ inputs.project_id }}
             workload_identity_provider: 'projects/${{ vars.WORKLOAD_IDENTITY_POOL_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/${{ vars.WORKLOAD_IDENTITY_POOL }}/providers/${{ vars.WORKLOAD_IDENTITY_PROVIDER }}'
 
       - name: Setup Terraform
